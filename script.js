@@ -90,11 +90,20 @@ let foodIng;
 let talking = false;
 let skip = false;
 
+const parseResponse = function (string) {
+  let container = string.split(".");
+  container = container.splice(1);
+  for (let i = 0; i < container.length; i++) {
+    container[i] = `${i + 1}. ${container[i].trim()} `;
+  }
+  return container.join("<br>");
+};
+
 appendMessage(
   BOT_NAME,
   BOT_IMG,
   "left",
-  "Hello, I am your personal cooking assistant. <br> How I may help you today?"
+  "Hello, I am your personal cooking assistant. <br> How I may help you today? 😀"
 );
 
 const reset = function () {
@@ -119,7 +128,12 @@ msgerForm.addEventListener("submit", (event) => {
   msgerInput.value = "";
   if (msgText.toLowerCase().includes("exit")) {
     setTimeout(() => {
-      appendMessage(BOT_NAME, BOT_IMG, "left", "Feel free to ask me anything!");
+      appendMessage(
+        BOT_NAME,
+        BOT_IMG,
+        "left",
+        "Feel free to ask me anything! 😀"
+      );
     }, 1000);
     reset();
     return;
@@ -140,7 +154,7 @@ msgerForm.addEventListener("submit", (event) => {
           BOT_NAME,
           BOT_IMG,
           "left",
-          "Sorry, it's not in our database. Try something else!"
+          "Sorry, it's not in our database 😥.  <br>Try something else! "
         );
       }, 1000);
       return;
@@ -183,7 +197,7 @@ msgerForm.addEventListener("submit", (event) => {
             BOT_NAME,
             BOT_IMG,
             "left",
-            "Please choose a valid ingredient or type exit to go ask me something new!"
+            "Please choose a valid ingredient or type exit to go ask me something new!😁"
           );
         }, 500);
         return;
@@ -219,9 +233,11 @@ function appendMessage(name, img, side, text) {
 }
 
 function botResponse() {
-  const response = listFood[type].getSunIng()[foodIng].getRec()[0];
+  let response = parseResponse(listFood[type].getSunIng()[foodIng].getRec()[0]);
+  response = `Follow the following step! <br> ${response} <br> Enjoy your food! 😋`;
   foodIng = -1;
   type = -1;
+  //console.log(parseResponse(response));
   setTimeout(() => {
     appendMessage(BOT_NAME, BOT_IMG, "left", response);
   }, 1000);
@@ -250,3 +266,4 @@ function formatDate(date) {
 // function random(min, max) {
 //   return Math.floor(Math.random() * (max - min) + min);
 // }
+
