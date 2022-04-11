@@ -33,26 +33,27 @@ getData();
 
 async function getData() {
   let start = -1;
-  const response = await fetch("MappingTry.csv");
+  const response = await fetch("FinalMapping.csv");
   const mess = await response.text();
   const rows = mess.split("\n").slice(1);
-  // console.log(rows);
+  //console.log(rows);
   rows.forEach((row, i) => {
     const el = row.split(";").splice(0, 3);
+    //console.log(el);
     if (el[0] !== "") {
       start++;
       listFood.push(new Food(el[0], el[1]));
-      if (el[2] !== "") {
-        listFood[start].getSunIng()[i].addRecipe(el[2]);
+      if (el[2]) {
+        listFood[start].getSunIng()[i % 5].addRecipe(el[2]);
       }
     } else if (el[1]) {
       listFood[start].addSecondIng(new Recipes(el[1]));
       if (el[2] !== "") {
-        listFood[start].getSunIng()[i].addRecipe(el[2]);
+        listFood[start].getSunIng()[i % 5].addRecipe(el[2]);
       }
     }
   });
-  console.log(listFood);
+  // console.log(listFood);
 }
 const startBtn = document.querySelector(".button-49");
 const textBox = document.querySelector(".text-box");
@@ -78,6 +79,7 @@ const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
+// Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "img/images.png";
 const PERSON_IMG = "img/dog.jpg";
 const BOT_NAME = "BOT";
@@ -217,16 +219,12 @@ function appendMessage(name, img, side, text) {
 }
 
 function botResponse() {
-  // const r = random(0, BOT_MSGS.length - 1);
-  // const msgText = BOT_MSGS[r];
-  // const delay = msgText.split(" ").length * 100;
-
   const response = listFood[type].getSunIng()[foodIng].getRec()[0];
   foodIng = -1;
   type = -1;
   setTimeout(() => {
     appendMessage(BOT_NAME, BOT_IMG, "left", response);
-  }, 500);
+  }, 1000);
   setTimeout(() => {
     appendMessage(
       BOT_NAME,
@@ -249,6 +247,6 @@ function formatDate(date) {
   return `${h.slice(-2)}:${m.slice(-2)}`;
 }
 
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+// function random(min, max) {
+//   return Math.floor(Math.random() * (max - min) + min);
+// }
