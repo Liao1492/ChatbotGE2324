@@ -93,8 +93,12 @@ let skip = false;
 const parseResponse = function (string) {
   let container = string.split(".");
   container = container.splice(1);
+
   for (let i = 0; i < container.length; i++) {
-    container[i] = `${i + 1}. ${container[i].trim()} `;
+    console.log();
+    container[i] = `${i + 1}. ${container[i]
+      .slice(0, container[i].length - 2)
+      .trim()} `;
   }
   return container.join("<br>");
 };
@@ -266,4 +270,5 @@ function formatDate(date) {
 // function random(min, max) {
 //   return Math.floor(Math.random() * (max - min) + min);
 // }
+
 
