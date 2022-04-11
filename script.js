@@ -78,7 +78,6 @@ const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
-// Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "img/images.png";
 const PERSON_IMG = "img/dog.jpg";
 const BOT_NAME = "BOT";
@@ -120,6 +119,7 @@ msgerForm.addEventListener("submit", (event) => {
     setTimeout(() => {
       appendMessage(BOT_NAME, BOT_IMG, "left", "Feel free to ask me anything!");
     }, 1000);
+    reset();
     return;
   }
   if (talking === false) {
