@@ -92,7 +92,7 @@ appendMessage(
   BOT_NAME,
   BOT_IMG,
   "left",
-  "Hello, I am your personal cooking assistan. <br> How I may help you today?"
+  "Hello, I am your personal cooking assistant. <br> How I may help you today?"
 );
 
 const reset = function () {
