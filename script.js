@@ -36,10 +36,8 @@ async function getData() {
   const response = await fetch("FinalMapping.csv");
   const mess = await response.text();
   const rows = mess.split("\n").slice(1);
-  //console.log(rows);
   rows.forEach((row, i) => {
     const el = row.split(";").splice(0, 3);
-    //console.log(el);
     if (el[0] !== "") {
       start++;
       listFood.push(new Food(el[0], el[1]));
@@ -93,9 +91,8 @@ let skip = false;
 const parseResponse = function (string) {
   let container = string.split(".");
   container = container.splice(1);
-
+  container = container.filter((el) => el !== "");
   for (let i = 0; i < container.length; i++) {
-    console.log();
     container[i] = `${i + 1}. ${container[i]
       .slice(0, container[i].length - 2)
       .trim()} `;
@@ -270,5 +267,3 @@ function formatDate(date) {
 // function random(min, max) {
 //   return Math.floor(Math.random() * (max - min) + min);
 // }
-
-
